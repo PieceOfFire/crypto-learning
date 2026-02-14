@@ -3,6 +3,9 @@ import { useQuery } from "@tanstack/react-query";
 import { getCoins } from "./api/crypto";
 import { CryptoCard } from "./components/crypto/CryptoCard";
 
+import { PortfolioTable } from "./components/portfolio/PortfolioTable";
+import type { PortfolioItem } from "./types/portfolio";
+
 export default function App() {
   const { data, isLoading, isError } = useQuery({
     queryKey: ["coins"],
@@ -16,6 +19,26 @@ export default function App() {
   if (isError) {
     return <p className="p-6 text-red-600">Error loading data</p>;
   }
+
+  const portfolio: PortfolioItem[] = [
+    {
+      id: "bitcoin",
+      name: "Bitcoin",
+      symbol: "btc",
+      amount: 0.12,
+      price: data?.find((c) => c.id === "bitcoin")
+        ?.current_price ?? 0,
+    },
+    {
+      id: "ethereum",
+      name: "Ethereum",
+      symbol: "eth",
+      amount: 1.5,
+      price: data?.find((c) => c.id === "ethereum")
+        ?.current_price ?? 0,
+    },
+];
+
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
@@ -34,6 +57,8 @@ export default function App() {
             image={coin.image}
           />
         ))}
+        <PortfolioTable items={portfolio} />
+
       </div>
     </div>
   );
