@@ -1,5 +1,16 @@
 # React + TypeScript + Vite
 
+## Environment variables
+
+1. Create `.env.local` in the project root.
+2. Add your CoinGecko demo key:
+
+```bash
+VITE_COINGECKO_API_KEY=CG-your-real-key
+```
+
+`*.local` and `.env*` files are ignored by git, so your key is not committed.
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:
