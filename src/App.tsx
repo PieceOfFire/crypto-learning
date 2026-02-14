@@ -1,65 +1,38 @@
-import { useQuery } from "@tanstack/react-query";
-
-import { getCoins } from "./api/crypto";
-import { CryptoCard } from "./components/crypto/CryptoCard";
-
-import { PortfolioTable } from "./components/portfolio/PortfolioTable";
-import type { PortfolioItem } from "./types/portfolio";
+import { NavLink, Navigate, Route, Routes } from "react-router-dom";
+import { CryptoPage } from "./pages/CryptoPage";
+import { PortfolioPage } from "./pages/PortfolioPage";
 
 export default function App() {
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ["coins"],
-    queryFn: getCoins,
-  });
-
-  if (isLoading) {
-    return <p className="p-6">Loading...</p>;
-  }
-
-  if (isError) {
-    return <p className="p-6 text-red-600">Error loading data</p>;
-  }
-
-  const portfolio: PortfolioItem[] = [
-    {
-      id: "bitcoin",
-      name: "Bitcoin",
-      symbol: "btc",
-      amount: 0.12,
-      price: data?.find((c) => c.id === "bitcoin")
-        ?.current_price ?? 0,
-    },
-    {
-      id: "ethereum",
-      name: "Ethereum",
-      symbol: "eth",
-      amount: 1.5,
-      price: data?.find((c) => c.id === "ethereum")
-        ?.current_price ?? 0,
-    },
-];
-
+  const linkClassName = ({ isActive }: { isActive: boolean }) =>
+    `rounded px-3 py-2 text-sm font-medium transition ${
+      isActive
+        ? "bg-black text-white"
+        : "bg-white text-gray-700 hover:bg-gray-200"
+    }`;
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
-      <h1 className="mb-6 text-2xl font-bold">
-        Crypto Dashboard
-      </h1>
+      <header className="mx-auto mb-6 flex w-full max-w-6xl items-center justify-between gap-4">
+        <h1 className="text-2xl font-bold">Crypto Dashboard</h1>
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {data?.map((coin) => (
-          <CryptoCard
-            key={coin.id}
-            name={coin.name}
-            symbol={coin.symbol}
-            price={coin.current_price}
-            change24h={coin.price_change_percentage_24h}
-            image={coin.image}
-          />
-        ))}
-        <PortfolioTable items={portfolio} />
+        <nav className="flex items-center gap-2">
+          <NavLink to="/coins" className={linkClassName}>
+            Карточки
+          </NavLink>
 
-      </div>
+          <NavLink to="/portfolio" className={linkClassName}>
+            Портфель
+          </NavLink>
+        </nav>
+      </header>
+
+      <main className="mx-auto w-full max-w-6xl">
+        <Routes>
+          <Route path="/" element={<Navigate to="/coins" replace />} />
+          <Route path="/coins" element={<CryptoPage />} />
+          <Route path="/portfolio" element={<PortfolioPage />} />
+        </Routes>
+      </main>
     </div>
   );
 }
