@@ -30,9 +30,7 @@ export default function App() {
           <h1 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
             Crypto Dashboard
           </h1>
-          <p className="text-xs tracking-wide text-muted-foreground sm:text-sm">
-            Mood: market pressure, neon signals, deep focus.
-          </p>
+          <p className="text-xs tracking-wide text-muted-foreground sm:text-sm">Менеджер ваших инвестиций.</p>
         </div>
 
         <nav className="flex flex-wrap items-center gap-2">
