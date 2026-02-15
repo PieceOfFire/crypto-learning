@@ -39,8 +39,8 @@ export function AddToPortfolioForm({ coins, onAdd }: Props) {
   }
 
   return (
-    <Card className="rounded-2xl border-slate-200/80 bg-white/90 p-5 shadow-sm">
-      <h3 className="text-base font-semibold text-slate-900">Add Asset</h3>
+    <Card className="rounded-2xl border-border/70 bg-card/85 p-5 shadow-xl shadow-black/20 backdrop-blur">
+      <h3 className="text-base font-semibold text-foreground">Add Asset</h3>
 
       <form onSubmit={handleSubmit} className="mt-4 space-y-4">
         <div className="space-y-2">
@@ -49,7 +49,7 @@ export function AddToPortfolioForm({ coins, onAdd }: Props) {
             id="coin"
             value={selectedId}
             onChange={(event) => setSelectedId(event.target.value)}
-            className="flex h-9 w-full rounded-md border border-input bg-background px-3 text-sm shadow-sm outline-none transition focus-visible:ring-1 focus-visible:ring-ring"
+            className="flex h-9 w-full rounded-md border border-input bg-background/70 px-3 text-sm shadow-sm outline-none transition focus-visible:ring-1 focus-visible:ring-ring"
           >
             <option value="">Select coin</option>
             {coins.map((coin) => (

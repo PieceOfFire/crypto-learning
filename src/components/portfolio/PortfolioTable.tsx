@@ -15,11 +15,11 @@ export function PortfolioTable({ items }: Props) {
   const totalValue = items.reduce((sum, item) => sum + item.amount * item.price, 0);
 
   return (
-    <Card className="mt-6 rounded-2xl border-slate-200/80 bg-white/90 p-5 shadow-sm">
-      <h3 className="mb-4 text-base font-semibold text-slate-900">My Portfolio</h3>
+    <Card className="mt-6 rounded-2xl border-border/70 bg-card/85 p-5 shadow-xl shadow-black/20 backdrop-blur">
+      <h3 className="mb-4 text-base font-semibold text-foreground">My Portfolio</h3>
 
       {items.length === 0 ? (
-        <p className="rounded-lg border border-dashed border-slate-300 bg-slate-50 px-4 py-6 text-center text-sm text-slate-500">
+        <p className="rounded-lg border border-dashed border-border/70 bg-background/50 px-4 py-6 text-center text-sm text-muted-foreground">
           No assets yet. Add your first coin above.
         </p>
       ) : (
@@ -27,7 +27,7 @@ export function PortfolioTable({ items }: Props) {
           <div className="overflow-x-auto">
             <table className="w-full min-w-[520px] text-sm">
               <thead>
-                <tr className="border-b text-slate-500">
+                <tr className="border-b text-muted-foreground">
                   <th className="px-2 py-2 text-left font-medium">Coin</th>
                   <th className="px-2 py-2 text-right font-medium">Amount</th>
                   <th className="px-2 py-2 text-right font-medium">Price</th>
@@ -37,16 +37,19 @@ export function PortfolioTable({ items }: Props) {
 
               <tbody>
                 {items.map((item) => (
-                  <tr key={item.id} className="border-b last:border-0 hover:bg-slate-50/70">
-                    <td className="px-2 py-3 font-medium text-slate-900">
-                      {item.name} <span className="text-slate-500">({item.symbol.toUpperCase()})</span>
+                  <tr key={item.id} className="border-b last:border-0 hover:bg-secondary/40">
+                    <td className="px-2 py-3 font-medium text-foreground">
+                      {item.name}{" "}
+                      <span className="text-muted-foreground">({item.symbol.toUpperCase()})</span>
                     </td>
 
-                    <td className="px-2 py-3 text-right text-slate-700">{item.amount}</td>
+                    <td className="px-2 py-3 text-right text-muted-foreground">{item.amount}</td>
 
-                    <td className="px-2 py-3 text-right text-slate-700">{currencyFormatter.format(item.price)}</td>
+                    <td className="px-2 py-3 text-right text-muted-foreground">
+                      {currencyFormatter.format(item.price)}
+                    </td>
 
-                    <td className="px-2 py-3 text-right font-semibold text-slate-900">
+                    <td className="px-2 py-3 text-right font-semibold text-foreground">
                       {currencyFormatter.format(item.amount * item.price)}
                     </td>
                   </tr>
@@ -55,7 +58,7 @@ export function PortfolioTable({ items }: Props) {
             </table>
           </div>
 
-          <div className="mt-4 border-t pt-4 text-right text-base font-semibold text-slate-900">
+          <div className="mt-4 border-t pt-4 text-right text-base font-semibold text-foreground">
             Total: {currencyFormatter.format(totalValue)}
           </div>
         </>

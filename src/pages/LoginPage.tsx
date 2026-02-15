@@ -82,12 +82,12 @@ export function LoginPage() {
 
   return (
     <section className="flex min-h-[70vh] items-center justify-center">
-      <Card className="w-full max-w-sm rounded-2xl border-slate-200/80 bg-white/90 p-6 shadow-sm">
-        <Link to="/coins" className="text-sm text-slate-500 transition hover:text-slate-900">
+      <Card className="w-full max-w-sm rounded-2xl border-border/70 bg-card/85 p-6 shadow-xl shadow-black/25 backdrop-blur">
+        <Link to="/coins" className="text-sm text-muted-foreground transition hover:text-foreground">
           {"<- Back"}
         </Link>
 
-        <h2 className="mt-4 text-center text-2xl font-semibold tracking-tight text-slate-900">Login</h2>
+        <h2 className="mt-4 text-center text-2xl font-semibold tracking-tight text-foreground">Login</h2>
 
         <form className="mt-6 space-y-4" onSubmit={handleSubmit} noValidate>
           <div className="space-y-2">

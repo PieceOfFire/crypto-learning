@@ -37,8 +37,8 @@ export function TransferForm() {
 
   return (
     <>
-      <Card className="max-w-md rounded-2xl border-slate-200/80 bg-white/90 p-6 shadow-sm">
-        <h3 className="mb-5 text-base font-semibold text-slate-900">Transfer funds</h3>
+      <Card className="max-w-md rounded-2xl border-border/70 bg-card/85 p-6 shadow-xl shadow-black/20 backdrop-blur">
+        <h3 className="mb-5 text-base font-semibold text-foreground">Transfer funds</h3>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
@@ -86,7 +86,7 @@ export function TransferForm() {
             <DialogTitle>Transfer completed</DialogTitle>
           </DialogHeader>
 
-          <div className="space-y-2 text-sm text-slate-700">
+          <div className="space-y-2 text-sm text-muted-foreground">
             <p>From: {from}</p>
             <p>To: {to}</p>
             <p>Amount: {amount}</p>

@@ -16,8 +16,19 @@ export type BtcPricePoint = {
   price: number;
 };
 
-const COINGECKO_API_BASE_URL = "https://api.coingecko.com/api/v3";
-const COINGECKO_API_KEY = import.meta.env.VITE_COINGECKO_API_KEY;
+const COINGECKO_API_PROXY_BASE_URL = "/api/coingecko";
+
+function getErrorMessage(status: number, fallback: string): string {
+  if (status === 429) {
+    return "CoinGecko rate limit reached. Try again in a minute.";
+  }
+
+  if (status === 403) {
+    return "CoinGecko access denied. Check API key settings.";
+  }
+
+  return fallback;
+}
 
 export async function getCoins(): Promise<Coin[]> {
   const params = new URLSearchParams({
@@ -28,14 +39,10 @@ export async function getCoins(): Promise<Coin[]> {
     sparkline: "false",
   });
 
-  if (COINGECKO_API_KEY) {
-    params.set("x_cg_demo_api_key", COINGECKO_API_KEY);
-  }
-
-  const res = await fetch(`${COINGECKO_API_BASE_URL}/coins/markets?${params.toString()}`);
+  const res = await fetch(`${COINGECKO_API_PROXY_BASE_URL}/coins/markets?${params.toString()}`);
 
   if (!res.ok) {
-    throw new Error("Failed to load coins");
+    throw new Error(getErrorMessage(res.status, "Failed to load coins"));
   }
 
   return res.json();
@@ -47,16 +54,10 @@ export async function getBtcHistory(days = 7): Promise<BtcPricePoint[]> {
     days: String(days),
   });
 
-  if (COINGECKO_API_KEY) {
-    params.set("x_cg_demo_api_key", COINGECKO_API_KEY);
-  }
-
-  const res = await fetch(
-    `${COINGECKO_API_BASE_URL}/coins/bitcoin/market_chart?${params.toString()}`,
-  );
+  const res = await fetch(`${COINGECKO_API_PROXY_BASE_URL}/coins/bitcoin/market_chart?${params.toString()}`);
 
   if (!res.ok) {
-    throw new Error("Failed to load BTC history");
+    throw new Error(getErrorMessage(res.status, "Failed to load BTC history"));
   }
 
   const data: BtcHistoryResponse = await res.json();

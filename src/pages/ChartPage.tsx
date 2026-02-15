@@ -96,15 +96,15 @@ export function ChartPage() {
   }, [chartData, dragEndTs, dragStartTs]);
 
   if (isLoading) {
-    return <p className="p-6">Loading...</p>;
+    return <p className="p-6 text-muted-foreground">Loading...</p>;
   }
 
   if (isError) {
-    return <p className="p-6 text-red-600">Error loading BTC chart</p>;
+    return <p className="p-6 text-rose-400">Error loading BTC chart</p>;
   }
 
   if (!data || data.length === 0) {
-    return <p className="p-6">No chart data</p>;
+    return <p className="p-6 text-muted-foreground">No chart data</p>;
   }
 
   const prices = chartData.map((point) => point.price);
@@ -153,10 +153,10 @@ export function ChartPage() {
 
   return (
     <section>
-      <h2 className="text-xl font-semibold">BTC Price Chart</h2>
+      <h2 className="text-xl font-semibold text-foreground">BTC Price Chart</h2>
 
-      <Card className="mt-6 p-4 md:p-6">
-        <p className="mb-3 text-sm text-gray-600">
+      <Card className="mt-6 border-border/70 bg-card/80 p-4 shadow-xl shadow-black/25 backdrop-blur md:p-6">
+        <p className="mb-3 text-sm text-muted-foreground">
           Hold mouse button and drag on chart to see interval and growth.
         </p>
 
@@ -169,7 +169,7 @@ export function ChartPage() {
               onMouseUp={handleMouseUp}
               onMouseLeave={handleMouseLeave}
             >
-              <CartesianGrid strokeDasharray="3 3" />
+              <CartesianGrid strokeDasharray="3 3" stroke="#31584b" />
               <XAxis
                 type="number"
                 dataKey="timestamp"
@@ -189,6 +189,12 @@ export function ChartPage() {
               />
               <Tooltip
                 isAnimationActive={false}
+                contentStyle={{
+                  background: "rgba(2, 23, 15, 0.92)",
+                  border: "1px solid rgba(84, 130, 113, 0.7)",
+                  borderRadius: "12px",
+                }}
+                labelStyle={{ color: "#d8f8e8" }}
                 formatter={(value: number | string | undefined) => {
                   if (isDragging) {
                     return [changeText, "Change"];
@@ -211,15 +217,15 @@ export function ChartPage() {
                   x1={Math.min(dragStartTs, dragEndTs)}
                   x2={Math.max(dragStartTs, dragEndTs)}
                   strokeOpacity={0.25}
-                  fill="#9ca3af"
-                  fillOpacity={0.2}
+                  fill="#36b9f0"
+                  fillOpacity={0.16}
                 />
               )}
 
               <Line
                 type="monotone"
                 dataKey="price"
-                stroke="#111827"
+                stroke="#ff4b91"
                 strokeWidth={3}
                 dot={false}
                 activeDot={false}

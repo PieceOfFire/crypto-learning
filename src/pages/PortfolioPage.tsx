@@ -21,9 +21,9 @@ export function PortfolioPage() {
   if (isLoading) {
     return (
       <section className="space-y-5">
-        <h2 className="text-xl font-semibold tracking-tight text-slate-900">Portfolio</h2>
-        <Card className="h-36 animate-pulse rounded-2xl bg-slate-100" />
-        <Card className="h-56 animate-pulse rounded-2xl bg-slate-100" />
+        <h2 className="text-xl font-semibold tracking-tight text-foreground">Portfolio</h2>
+        <Card className="h-36 animate-pulse rounded-2xl border-border/60 bg-muted/35" />
+        <Card className="h-56 animate-pulse rounded-2xl border-border/60 bg-muted/35" />
       </section>
     );
   }
@@ -38,7 +38,7 @@ export function PortfolioPage() {
 
   return (
     <section>
-      <h2 className="mb-5 text-xl font-semibold tracking-tight text-slate-900">Portfolio</h2>
+      <h2 className="mb-5 text-xl font-semibold tracking-tight text-foreground">Portfolio</h2>
       <AddToPortfolioForm coins={data ?? []} onAdd={handleAdd} />
       <PortfolioTable items={portfolio} />
     </section>
