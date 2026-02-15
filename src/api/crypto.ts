@@ -7,6 +7,15 @@ export type Coin = {
   price_change_percentage_24h: number;
 };
 
+type BtcHistoryResponse = {
+  prices: [number, number][];
+};
+
+export type BtcPricePoint = {
+  timestamp: number;
+  price: number;
+};
+
 const COINGECKO_API_BASE_URL = "https://api.coingecko.com/api/v3";
 const COINGECKO_API_KEY = import.meta.env.VITE_COINGECKO_API_KEY;
 
@@ -30,4 +39,30 @@ export async function getCoins(): Promise<Coin[]> {
   }
 
   return res.json();
+}
+
+export async function getBtcHistory(days = 7): Promise<BtcPricePoint[]> {
+  const params = new URLSearchParams({
+    vs_currency: "usd",
+    days: String(days),
+  });
+
+  if (COINGECKO_API_KEY) {
+    params.set("x_cg_demo_api_key", COINGECKO_API_KEY);
+  }
+
+  const res = await fetch(
+    `${COINGECKO_API_BASE_URL}/coins/bitcoin/market_chart?${params.toString()}`,
+  );
+
+  if (!res.ok) {
+    throw new Error("Failed to load BTC history");
+  }
+
+  const data: BtcHistoryResponse = await res.json();
+
+  return data.prices.map(([timestamp, price]) => ({
+    timestamp,
+    price: Number(price.toFixed(2)),
+  }));
 }
